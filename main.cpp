@@ -190,6 +190,134 @@ void sample_08() {
     }
 }
 
+void test_case_09() {
+    RopeTextBuffer tb;
+    tb.insert("Hello");
+    tb.moveCursorTo(1);
+    tb.replace(3, "XOX");
+    std::string expect = "HXOXo, cursor=4";
+    std::ostringstream oss;
+    oss << tb.getContent() << ", cursor=" << tb.getCursorPos();
+    std::string result = oss.str();
+
+    // Kiểm tra nội dung
+    if (result == expect) {
+        std::cout << GREEN << "test_case_09 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "test_case_09 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Kiểm tra lịch sử thao tác
+    std::string expectHist = "[(insert, 0, 5, Hello), (move, 5, 1, J), (replace, 1, 4, ell)]";
+    std::ostringstream ossHist;
+    // Chuyển hướng cout tạm thời
+    std::streambuf* oldCout = std::cout.rdbuf();
+    std::cout.rdbuf(ossHist.rdbuf());
+    tb.printHistory();
+    std::cout.rdbuf(oldCout);
+    std::string historyResult = ossHist.str();
+    // Xóa ký tự xuống dòng cuối nếu có
+    if (!historyResult.empty() && historyResult.back() == '\n') historyResult.pop_back();
+
+    if (historyResult == expectHist) {
+        std::cout << GREEN << "History correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "History failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << historyResult << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expectHist << RESET << std::endl;
+        num_incorrect++;
+    }
+}
+
+void test_case_10() {
+    RopeTextBuffer tb;
+    tb.insert("ABCDEF");
+    tb.moveCursorTo(1);
+    tb.replace(3, "XYZ");
+    std::string expect = "AXYZEF, cursor=4";
+    std::ostringstream oss;
+    oss << tb.getContent() << ", cursor=" << tb.getCursorPos();
+    std::string result = oss.str();
+    if (result == expect) {
+        std::cout << GREEN << "test_case_10 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "test_case_10 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
+        num_incorrect++;
+    }
+    std::string expectHist = "[(insert, 0, 6, ABCDEF), (move, 6, 1, J), (replace, 1, 4, BCD)]";
+    std::ostringstream ossHist;
+    std::streambuf* oldCout = std::cout.rdbuf();
+    std::cout.rdbuf(ossHist.rdbuf());
+    tb.printHistory();
+    std::cout.rdbuf(oldCout);
+    std::string historyResult = ossHist.str();
+    if (!historyResult.empty() && historyResult.back() == '\n') historyResult.pop_back();
+    if (historyResult == expectHist) {
+        std::cout << GREEN << "History correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "History failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << historyResult << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expectHist << RESET << std::endl;
+        num_incorrect++;
+    }
+}
+
+void test_case_11() {
+    RopeTextBuffer tb;
+    tb.insert("A");
+    tb.insert("CSE");
+    tb.insert("HCMUT");
+    tb.moveCursorLeft();
+    tb.insert("123");
+    tb.moveCursorTo(4);
+    tb.deleteRange(3);
+    tb.undo();
+    tb.undo();
+    tb.undo();
+    tb.redo();
+    tb.redo();
+    tb.redo();
+    std::string expect = "ACSEU123T, cursor=4";
+    std::ostringstream oss;
+    oss << tb.getContent() << ", cursor=" << tb.getCursorPos();
+    std::string result = oss.str();
+    if (result == expect) {
+        std::cout << GREEN << "test_case_11 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "test_case_11 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
+        num_incorrect++;
+    }
+    std::string expectHist = "[(insert, 0, 1, A), (insert, 1, 4, CSE), (insert, 4, 9, HCMUT), (move, 9, 8, L), (insert, 8, 11, 123), (move, 11, 4, J), (delete, 4, 4, HCM)]";
+    std::ostringstream ossHist;
+    std::streambuf* oldCout = std::cout.rdbuf();
+    std::cout.rdbuf(ossHist.rdbuf());
+    tb.printHistory();
+    std::cout.rdbuf(oldCout);
+    std::string historyResult = ossHist.str();
+    if (!historyResult.empty() && historyResult.back() == '\n') historyResult.pop_back();
+    if (historyResult == expectHist) {
+        std::cout << GREEN << "History correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "History failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << historyResult << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expectHist << RESET << std::endl;
+        num_incorrect++;
+    }
+}
+
 
 int main() {
     cout << BLUE << "=========== LMS TESTS ============" << RESET << endl;
@@ -201,7 +329,10 @@ int main() {
     sample_06();
     sample_07();
     sample_08();
-    
+    cout << BLUE << "\n=========== OTHER TESTS ============" << RESET << endl;
+    test_case_09();
+    test_case_10();
+    test_case_11();
 
 
     cout << BLUE << "\n=========== Summary ============" << RESET << endl;
