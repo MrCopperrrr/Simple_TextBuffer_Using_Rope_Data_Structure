@@ -317,6 +317,187 @@ void test_case_11() {
         num_incorrect++;
     }
 }
+void test_example_3_1() {
+    RopeTextBuffer buf;
+
+    // Thao tác 1: insert("A")
+    buf.insert("A");
+    std::string result = buf.getContent();
+    std::string expect = "A";
+    if (result == expect && buf.getCursorPos() == 1) {
+        std::cout << GREEN << "Step 1 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 1 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << ", Cursor: 1" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 2: insert("CSE")
+    buf.insert("CSE");
+    result = buf.getContent();
+    expect = "ACSE";
+    if (result == expect && buf.getCursorPos() == 4) {
+        std::cout << GREEN << "Step 2 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 2 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << ", Cursor: 4" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 3: insert("HCMUT")
+    buf.insert("HCMUT");
+    result = buf.getContent();
+    expect = "ACSEHCMUT";
+    if (result == expect && buf.getCursorPos() == 9) {
+        std::cout << GREEN << "Step 3 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 3 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << ", Cursor: 9" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 4: moveCursorLeft()
+    buf.moveCursorLeft();
+    result = buf.getContent();
+    if (buf.getCursorPos() == 8) {
+        std::cout << GREEN << "Step 4 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 4 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Cursor: " << buf.getCursorPos() << ", Expect: 8" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 5: insert("123")
+    buf.insert("123");
+    result = buf.getContent();
+    expect = "ACSEHCMU123T";
+    if (result == expect && buf.getCursorPos() == 11) {
+        std::cout << GREEN << "Step 5 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 5 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << ", Cursor: 11" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 6: moveCursorTo(4)
+    buf.moveCursorTo(4);
+    if (buf.getCursorPos() == 4) {
+        std::cout << GREEN << "Step 6 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 6 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Cursor: " << buf.getCursorPos() << ", Expect: 4" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 7: deleteRange(3)
+    buf.deleteRange(3);
+    result = buf.getContent();
+    expect = "ACSEU123T";
+    if (result == expect && buf.getCursorPos() == 4) {
+        std::cout << GREEN << "Step 7 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 7 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << ", Cursor: 4" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 8: undo() (khôi phục chuỗi đã xóa)
+    buf.undo();
+    result = buf.getContent();
+    expect = "ACSEHCMU123T";
+    if (result == expect && buf.getCursorPos() == 4) {
+        std::cout << GREEN << "Step 8 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 8 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << ", Cursor: 4" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 9: undo() (di chuyển cursor về lại vị trí trước thao tác 6)
+    buf.undo();
+    result = buf.getContent();
+    expect = "ACSEHCMU123T";
+    if (result == expect && buf.getCursorPos() == 11) {
+        std::cout << GREEN << "Step 9 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 9 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << ", Cursor: 11" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 10: undo() (xóa chuỗi "123" đã thêm)
+    buf.undo();
+    result = buf.getContent();
+    expect = "ACSEHCMUT";
+    if (result == expect && buf.getCursorPos() == 8) {
+        std::cout << GREEN << "Step 10 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 10 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << ", Cursor: 8" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 11: redo() (thêm lại chuỗi "123")
+    buf.redo();
+    result = buf.getContent();
+    expect = "ACSEHCMU123T";
+    if (result == expect && buf.getCursorPos() == 11) {
+        std::cout << GREEN << "Step 11 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 11 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << ", Cursor: 11" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 12: redo() (di chuyển cursor về lại vị trí 4)
+    buf.redo();
+    result = buf.getContent();
+    expect = "ACSEHCMU123T";
+    if (result == expect && buf.getCursorPos() == 4) {
+        std::cout << GREEN << "Step 12 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 12 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << ", Cursor: 4" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+    // Thao tác 13: redo() (xóa 3 ký tự)
+    buf.redo();
+    result = buf.getContent();
+    expect = "ACSEU123T";
+    if (result == expect && buf.getCursorPos() == 4) {
+        std::cout << GREEN << "Step 13 correct." << RESET << std::endl;
+        num_correct++;
+    } else {
+        std::cout << RED << "Step 13 failed." << RESET << std::endl;
+        std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
+        std::cout << ORANGE << "Expect: " << expect << ", Cursor: 4" << RESET << std::endl;
+        num_incorrect++;
+    }
+
+}
 
 
 int main() {
@@ -329,10 +510,14 @@ int main() {
     sample_06();
     sample_07();
     sample_08();
+    
     cout << BLUE << "\n=========== OTHER TESTS ============" << RESET << endl;
     test_case_09();
     test_case_10();
     test_case_11();
+    
+    cout << BLUE << "\n=========== EXAMPLE TESTS ============" << RESET << endl;
+    test_example_3_1();
 
 
     cout << BLUE << "\n=========== Summary ============" << RESET << endl;
