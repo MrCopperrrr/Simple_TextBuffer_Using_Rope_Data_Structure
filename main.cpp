@@ -3,6 +3,8 @@
 
 //include lib
 #include <sstream> 
+#include <vector>
+#include <string>
 
 // define color
 #define GREEN "\033[32m"  //pass
@@ -18,6 +20,12 @@ using namespace std;
 
 int num_correct = 0;
 int num_incorrect = 0;
+//find failed tests
+std::vector<std::string> failed_tests;
+
+void record_failed_test(const std::string& msg) {
+    failed_tests.push_back(msg);
+}
 
 void sample_01() {
     Rope rope;
@@ -33,6 +41,7 @@ void sample_01() {
         std::cout << ORANGE << "Result: " << result << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("sample_01 failed.");
     }
 }
 
@@ -51,6 +60,7 @@ void sample_02() {
         std::cout << ORANGE << "Result: " << result << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("sample_02 failed.");
     }
 }
 
@@ -69,6 +79,7 @@ void sample_03() {
         std::cout << ORANGE << "Result: " << result << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("sample_03 failed.");
     }
 }
 
@@ -87,6 +98,7 @@ void sample_04() {
         std::cout << ORANGE << "Result: " << result << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("sample_04 failed.");
     }
 }
 
@@ -107,6 +119,7 @@ void sample_05() {
         std::cout << ORANGE << "Result: " << result << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("sample_05 failed.");
     }
 }
 
@@ -127,6 +140,7 @@ void sample_06() {
         std::cout << ORANGE << "Result: " << result << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("sample_06 failed.");
     }
 }
 
@@ -150,6 +164,7 @@ void sample_07() {
         std::cout << ORANGE << "Result: " << result << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("sample_07 failed.");
     }
 }
 
@@ -171,6 +186,7 @@ void sample_08() {
         std::cout << ORANGE << "Result: " << result << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("sample_08 failed.");
     }
     // Kiểm tra lịch sử thao tác tự động
     std::string expectHist = "[(insert, 0, 2, Hi), (insert, 2, 4, !!), (move, 4, 3, L), (delete, 3, 3, !)]";
@@ -207,6 +223,7 @@ void test_example_3_1() {
         std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << ", Cursor: 1" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 1 failed.");
     }
 
     // Thao tác 2: insert("CSE")
@@ -221,6 +238,7 @@ void test_example_3_1() {
         std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << ", Cursor: 4" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 2 failed.");
     }
 
     // Thao tác 3: insert("HCMUT")
@@ -235,6 +253,7 @@ void test_example_3_1() {
         std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << ", Cursor: 9" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 3 failed.");
     }
 
     // Thao tác 4: moveCursorLeft()
@@ -247,6 +266,7 @@ void test_example_3_1() {
         std::cout << RED << "Step 4 failed." << RESET << std::endl;
         std::cout << ORANGE << "Cursor: " << buf.getCursorPos() << ", Expect: 8" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 4 failed.");
     }
 
     // Thao tác 5: insert("123")
@@ -261,6 +281,7 @@ void test_example_3_1() {
         std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << ", Cursor: 11" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 5 failed.");
     }
 
     // Thao tác 6: moveCursorTo(4)
@@ -272,6 +293,7 @@ void test_example_3_1() {
         std::cout << RED << "Step 6 failed." << RESET << std::endl;
         std::cout << ORANGE << "Cursor: " << buf.getCursorPos() << ", Expect: 4" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 6 failed.");
     }
 
     // Thao tác 7: deleteRange(3)
@@ -286,6 +308,7 @@ void test_example_3_1() {
         std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << ", Cursor: 4" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 7 failed.");
     }
 
     // Thao tác 8: undo() (khôi phục chuỗi đã xóa)
@@ -300,6 +323,7 @@ void test_example_3_1() {
         std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << ", Cursor: 4" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 8 failed.");
     }
 
     // Thao tác 9: undo() (di chuyển cursor về lại vị trí trước thao tác 6)
@@ -314,6 +338,7 @@ void test_example_3_1() {
         std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << ", Cursor: 11" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 9 failed.");
     }
 
     // Thao tác 10: undo() (xóa chuỗi "123" đã thêm)
@@ -328,6 +353,7 @@ void test_example_3_1() {
         std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << ", Cursor: 8" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 10 failed.");
     }
 
     // Thao tác 11: redo() (thêm lại chuỗi "123")
@@ -342,6 +368,7 @@ void test_example_3_1() {
         std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << ", Cursor: 11" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 11 failed.");
     }
 
     // Thao tác 12: redo() (di chuyển cursor về lại vị trí 4)
@@ -356,6 +383,7 @@ void test_example_3_1() {
         std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << ", Cursor: 4" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 12 failed.");
     }
 
     // Thao tác 13: redo() (xóa 3 ký tự)
@@ -370,6 +398,7 @@ void test_example_3_1() {
         std::cout << ORANGE << "Result: " << result << ", Cursor: " << buf.getCursorPos() << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << ", Cursor: 4" << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("Step 13 failed.");
     }
 
 }
@@ -393,6 +422,7 @@ void test_case_09() {
         std::cout << ORANGE << "Result: " << result << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("test_case_09 failed.");
     }
 
     // Kiểm tra lịch sử thao tác
@@ -435,6 +465,7 @@ void test_case_10() {
         std::cout << ORANGE << "Result: " << result << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("test_case_10 failed.");
     }
     std::string expectHist = "[(insert, 0, 6, ABCDEF), (move, 6, 1, J), (replace, 1, 4, BCD)]";
     std::ostringstream ossHist;
@@ -482,6 +513,7 @@ void test_case_11() {
         std::cout << ORANGE << "Result: " << result << RESET << std::endl;
         std::cout << ORANGE << "Expect: " << expect << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("test_case_11 failed.");
     }
     std::string expectHist = "[(insert, 0, 1, A), (insert, 1, 4, CSE), (insert, 4, 9, HCMUT), (move, 9, 8, L), (insert, 8, 11, 123), (move, 11, 4, J), (delete, 4, 4, HCM)]";
     std::ostringstream ossHist;
@@ -501,6 +533,25 @@ void test_case_11() {
         num_incorrect++;
     }
 }
+
+void run_basic_tests() {
+    cout << BLUE << "=========== LMS TESTS ============" << RESET << endl;
+    sample_01();
+    sample_02();
+    sample_03();
+    sample_04();
+    sample_05();
+    sample_06();
+    sample_07();
+    sample_08();
+    cout << BLUE << "\n=========== OTHER TESTS ============" << RESET << endl;
+    test_case_09();
+    test_case_10();
+    test_case_11();
+    cout << BLUE << "\n=========== EXAMPLE TESTS ============" << RESET << endl;
+    test_example_3_1();
+    
+}
 class TestHelper {
 public:
     static void test_height();
@@ -513,18 +564,6 @@ public:
     static void test_charAt();
     static void test_toString();
     static void test_destroy();
-    static void test_public_length_empty();
-    static void test_public_charAt();
-    static void test_public_substring();
-    static void test_public_insert();
-    static void test_public_deleteRange();
-    static void test_public_replace();
-    static void test_public_cursor();
-    static void test_public_getContent();
-    static void test_public_findFirst_findAll();
-    static void test_public_undo();
-    static void test_public_redo();
-    static void test_public_printHistory_clear();
 };
 
 void TestHelper::test_height() {
@@ -537,6 +576,7 @@ void TestHelper::test_height() {
     } else {
         std::cout << RED << "height(nullptr) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("height(nullptr) failed.");
     }
 
     // Test 2: node lá
@@ -547,6 +587,7 @@ void TestHelper::test_height() {
     } else {
         std::cout << RED << "height(leaf) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("height(leaf) failed.");
     }
     delete leaf;
 
@@ -563,6 +604,7 @@ void TestHelper::test_height() {
     } else {
         std::cout << RED << "height(root) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("height(root) failed.");
     }
     rope.destroy(root);
 }
@@ -577,6 +619,7 @@ void TestHelper::test_getTotalLength() {
     } else {
         std::cout << RED << "getTotalLength(nullptr) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("getTotalLength(nullptr) failed.");
     }
 
     // Test 2: node lá
@@ -587,6 +630,7 @@ void TestHelper::test_getTotalLength() {
     } else {
         std::cout << RED << "getTotalLength(leaf) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("getTotalLength(leaf) failed.");
     }
     delete leaf;
 
@@ -603,6 +647,7 @@ void TestHelper::test_getTotalLength() {
     } else {
         std::cout << RED << "getTotalLength(root) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("getTotalLength(root) failed.");
     }
     rope.destroy(root);
 }
@@ -630,6 +675,7 @@ void TestHelper::test_update() {
     } else {
         std::cout << RED << "update(leaf) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("update(leaf) failed.");
     }
     delete leaf;
 
@@ -647,6 +693,7 @@ void TestHelper::test_update() {
     } else {
         std::cout << RED << "update(root with 2 leaves) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("update(root with 2 leaves) failed.");
     }
     rope.destroy(root);
 
@@ -669,6 +716,7 @@ void TestHelper::test_update() {
     } else {
         std::cout << RED << "update(balance LH) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("update(balance LH) failed.");
     }
     rope.destroy(root2);
 
@@ -691,6 +739,7 @@ void TestHelper::test_update() {
     } else {
         std::cout << RED << "update(balance RH) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("update(balance RH) failed.");
     }
     rope.destroy(root3);
 
@@ -708,6 +757,7 @@ void TestHelper::test_update() {
     } else {
         std::cout << RED << "update(balance EH) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("update(balance EH) failed.");
     }
     rope.destroy(root4);
 }
@@ -724,6 +774,7 @@ void TestHelper::test_rotateLeft() {
     } else {
         std::cout << RED << "rotateLeft(nullptr) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateLeft(nullptr) failed.");
     }
 
     // Test 2: node không có right
@@ -735,6 +786,7 @@ void TestHelper::test_rotateLeft() {
     } else {
         std::cout << RED << "rotateLeft(no right) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateLeft(no right) failed.");
     }
     delete x;
 
@@ -752,6 +804,7 @@ void TestHelper::test_rotateLeft() {
     } else {
         std::cout << RED << "rotateLeft(2-level) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateLeft(2-level) failed.");
     }
     rope.destroy(newRoot3);
 
@@ -773,6 +826,7 @@ void TestHelper::test_rotateLeft() {
     } else {
         std::cout << RED << "rotateLeft(right has left child) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateLeft(right has left child) failed.");
     }
     rope.destroy(newRoot4);
 
@@ -795,6 +849,7 @@ void TestHelper::test_rotateLeft() {
     } else {
         std::cout << RED << "rotateLeft(complex right) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateLeft(complex right) failed.");
     }
     rope.destroy(newRoot5);
 
@@ -821,6 +876,7 @@ void TestHelper::test_rotateLeft() {
     } else {
         std::cout << RED << "rotateLeft(update height/balance) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateLeft(update height/balance) failed.");
     }
     rope.destroy(newRoot6);
 
@@ -850,6 +906,7 @@ void TestHelper::test_rotateLeft() {
     } else {
         std::cout << RED << "rotateLeft(multiple) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateLeft(multiple) failed.");
     }
     rope.destroy(root8);
 
@@ -867,6 +924,7 @@ void TestHelper::test_rotateLeft() {
     } else {
         std::cout << RED << "rotateLeft(data preserved) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateLeft(data preserved) failed.");
     }
     rope.destroy(newRoot9);
 }
@@ -883,6 +941,7 @@ void TestHelper::test_rotateRight() {
     } else {
         std::cout << RED << "rotateRight(nullptr) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateRight(nullptr) failed.");
     }
 
     // Test 2: node không có left
@@ -894,6 +953,7 @@ void TestHelper::test_rotateRight() {
     } else {
         std::cout << RED << "rotateRight(no left) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateRight(no left) failed.");
     }
     delete y2;
 
@@ -909,6 +969,7 @@ void TestHelper::test_rotateRight() {
     } else {
         std::cout << RED << "rotateRight(2-level) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateRight(2-level) failed.");
     }
     rope.destroy(newRoot3);
 
@@ -928,6 +989,7 @@ void TestHelper::test_rotateRight() {
     } else {
         std::cout << RED << "rotateRight(left has right child) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateRight(left has right child) failed.");
     }
     rope.destroy(newRoot4);
 
@@ -949,6 +1011,7 @@ void TestHelper::test_rotateRight() {
     } else {
         std::cout << RED << "rotateRight(complex left) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateRight(complex left) failed.");
     }
     rope.destroy(newRoot5);
 
@@ -959,19 +1022,19 @@ void TestHelper::test_rotateRight() {
     rope.update(x6);
     rope.update(y6);
     Rope::Node* newRoot6 = rope.rotateRight(y6);
-    // Sau xoay, newRoot6 là x6, newRoot6->right là y6, y6->left == nullptr
     bool heightOk = (newRoot6 == x6 &&
-                     newRoot6->height == 1 && // Sửa: newRoot6->height phải là 1
+                     newRoot6->height == 1 &&
                      newRoot6->balance == Rope::Node::EH &&
                      newRoot6->right == y6 &&
                      y6->left == nullptr &&
-                     y6->balance == Rope::Node::EH); // Thêm kiểm tra y6->balance
+                     y6->balance == Rope::Node::EH);
     if (heightOk) {
         std::cout << GREEN << "rotateRight(update height/balance) correct." << RESET << std::endl;
         num_correct++;
     } else {
         std::cout << RED << "rotateRight(update height/balance) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateRight(update height/balance) failed.");
     }
     rope.destroy(newRoot6);
 
@@ -1001,6 +1064,7 @@ void TestHelper::test_rotateRight() {
     } else {
         std::cout << RED << "rotateRight(multiple) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateRight(multiple) failed.");
     }
     rope.destroy(root8);
 
@@ -1020,6 +1084,7 @@ void TestHelper::test_rotateRight() {
     } else {
         std::cout << RED << "rotateRight(data preserved) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("rotateRight(data preserved) failed.");
     }
     rope.destroy(newRoot9);
 }
@@ -1038,6 +1103,7 @@ void TestHelper::test_split() {
     } else {
         std::cout << RED << "split(nullptr) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("split(nullptr) failed.");
     }
 
     // Test 2: split node lá với index = 0
@@ -1050,6 +1116,7 @@ void TestHelper::test_split() {
     } else {
         std::cout << RED << "split(leaf, index=0) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("split(leaf, index=0) failed.");
     }
     rope.destroy(right);
 
@@ -1063,6 +1130,7 @@ void TestHelper::test_split() {
     } else {
         std::cout << RED << "split(leaf, index=length) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("split(leaf, index=length) failed.");
     }
     rope.destroy(left);
 
@@ -1076,6 +1144,7 @@ void TestHelper::test_split() {
     } else {
         std::cout << RED << "split(leaf, index=mid) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("split(leaf, index=mid) failed.");
     }
     rope.destroy(left);
     rope.destroy(right);
@@ -1096,6 +1165,7 @@ void TestHelper::test_split() {
     } else {
         std::cout << RED << "split(two leaves, index=left length) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("split(two leaves, index=left length) failed.");
     }
     rope.destroy(left);
     rope.destroy(right);
@@ -1116,6 +1186,7 @@ void TestHelper::test_split() {
     } else {
         std::cout << RED << "split(two leaves, index=mid) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("split(two leaves, index=mid) failed.");
     }
     rope.destroy(left);
     rope.destroy(right);
@@ -1136,6 +1207,7 @@ void TestHelper::test_split() {
     } else {
         std::cout << RED << "split(two leaves, index=5) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("split(two leaves, index=5) failed.");
     }
     rope.destroy(left);
     rope.destroy(right);
@@ -1155,6 +1227,7 @@ void TestHelper::test_split() {
     } else {
         std::cout << RED << "split(two leaves, index=total length) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("split(two leaves, index=total length) failed.");
     }
     rope.destroy(left);
 
@@ -1173,6 +1246,7 @@ void TestHelper::test_split() {
     } else {
         std::cout << RED << "split(two leaves, index=0) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("split(two leaves, index=0) failed.");
     }
     rope.destroy(right);
 }
@@ -1190,6 +1264,7 @@ void TestHelper::test_concatNodes() {
     } else {
         std::cout << RED << "concatNodes(nullptr, nullptr) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("concatNodes(nullptr, nullptr) failed.");
     }
 
     // Test 2: left = nullptr, right != nullptr
@@ -1202,6 +1277,7 @@ void TestHelper::test_concatNodes() {
     } else {
         std::cout << RED << "concatNodes(nullptr, right) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("concatNodes(nullptr, right) failed.");
     }
     rope.destroy(res);
 
@@ -1215,6 +1291,7 @@ void TestHelper::test_concatNodes() {
     } else {
         std::cout << RED << "concatNodes(left, nullptr) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("concatNodes(left, nullptr) failed.");
     }
     rope.destroy(res);
 
@@ -1229,6 +1306,7 @@ void TestHelper::test_concatNodes() {
     } else {
         std::cout << RED << "concatNodes(two leaves) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("concatNodes(two leaves) failed.");
     }
     rope.destroy(res);
 
@@ -1248,6 +1326,7 @@ void TestHelper::test_concatNodes() {
     } else {
         std::cout << RED << "concatNodes(tree, leaf) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("concatNodes(tree, leaf) failed.");
     }
     rope.destroy(res);
 
@@ -1267,6 +1346,7 @@ void TestHelper::test_concatNodes() {
     } else {
         std::cout << RED << "concatNodes(leaf, tree) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("concatNodes(leaf, tree) failed.");
     }
     rope.destroy(res);
 
@@ -1293,6 +1373,7 @@ void TestHelper::test_concatNodes() {
     } else {
         std::cout << RED << "concatNodes(tree, tree) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("concatNodes(tree, tree) failed.");
     }
     rope.destroy(res);
 
@@ -1309,6 +1390,7 @@ void TestHelper::test_concatNodes() {
     } else {
         std::cout << RED << "concatNodes(multiple) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("concatNodes(multiple) failed.");
     }
     rope.destroy(t8b);
 
@@ -1323,6 +1405,7 @@ void TestHelper::test_concatNodes() {
     } else {
         std::cout << RED << "concatNodes(balance) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("concatNodes(balance) failed.");
     }
     rope.destroy(big);
 }
@@ -1340,6 +1423,7 @@ void TestHelper::test_charAt() {
     } else {
         std::cout << RED << "charAt(nullptr, 0) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("charAt(nullptr, 0) failed.");
     }
 
     // Test 2: node lá, index < 0
@@ -1352,6 +1436,7 @@ void TestHelper::test_charAt() {
     } else {
         std::cout << RED << "charAt(leaf, -1) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("charAt(leaf, -1) failed.");
     }
     delete leaf2;
 
@@ -1365,6 +1450,7 @@ void TestHelper::test_charAt() {
     } else {
         std::cout << RED << "charAt(leaf, out-of-bounds) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("charAt(leaf, out-of-bounds) failed.");
     }
     delete leaf3;
 
@@ -1378,6 +1464,7 @@ void TestHelper::test_charAt() {
     } else {
         std::cout << RED << "charAt(leaf, valid) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("charAt(leaf, valid) failed.");
     }
     delete leaf4;
 
@@ -1396,6 +1483,7 @@ void TestHelper::test_charAt() {
     } else {
         std::cout << RED << "charAt(tree, left) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("charAt(tree, left) failed.");
     }
     rope.destroy(root5);
 
@@ -1414,6 +1502,7 @@ void TestHelper::test_charAt() {
     } else {
         std::cout << RED << "charAt(tree, right) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("charAt(tree, right) failed.");
     }
     rope.destroy(root6);
 
@@ -1432,6 +1521,7 @@ void TestHelper::test_charAt() {
     } else {
         std::cout << RED << "charAt(tree, mid) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("charAt(tree, mid) failed.");
     }
     rope.destroy(root7);
 
@@ -1450,6 +1540,7 @@ void TestHelper::test_charAt() {
     } else {
         std::cout << RED << "charAt(tree, last) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("charAt(tree, last) failed.");
     }
     rope.destroy(root8);
 
@@ -1468,6 +1559,7 @@ void TestHelper::test_charAt() {
     } else {
         std::cout << RED << "charAt(tree, out-of-bounds) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("charAt(tree, out-of-bounds) failed.");
     }
     rope.destroy(root9);
 }
@@ -1485,6 +1577,7 @@ void TestHelper::test_toString() {
     } else {
         std::cout << RED << "toString(nullptr) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("toString(nullptr) failed.");
     }
 
     // Test 2: node lá rỗng
@@ -1497,6 +1590,7 @@ void TestHelper::test_toString() {
     } else {
         std::cout << RED << "toString(empty leaf) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("toString(empty leaf) failed.");
     }
     delete leaf2;
 
@@ -1510,6 +1604,7 @@ void TestHelper::test_toString() {
     } else {
         std::cout << RED << "toString(leaf) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("toString(leaf) failed.");
     }
     delete leaf3;
 
@@ -1528,6 +1623,7 @@ void TestHelper::test_toString() {
     } else {
         std::cout << RED << "toString(two leaves) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("toString(two leaves) failed.");
     }
     rope.destroy(root4);
 
@@ -1559,6 +1655,7 @@ void TestHelper::test_toString() {
     } else {
         std::cout << RED << "toString(multi-level tree) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("toString(multi-level tree) failed.");
     }
     rope.destroy(root5);
 
@@ -1577,6 +1674,7 @@ void TestHelper::test_toString() {
     } else {
         std::cout << RED << "toString(tree with empty leaf) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("toString(tree with empty leaf) failed.");
     }
     rope.destroy(root6);
 
@@ -1594,6 +1692,7 @@ void TestHelper::test_toString() {
     } else {
         std::cout << RED << "toString(left only) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("toString(left only) failed.");
     }
     rope.destroy(root7);
 
@@ -1611,6 +1710,7 @@ void TestHelper::test_toString() {
     } else {
         std::cout << RED << "toString(right only) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("toString(right only) failed.");
     }
     rope.destroy(root8);
 }
@@ -1629,6 +1729,7 @@ void TestHelper::test_destroy() {
     } else {
         std::cout << RED << "destroy(nullptr) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("destroy(nullptr) failed.");
     }
 
     // Test 2: destroy node lá
@@ -1641,6 +1742,7 @@ void TestHelper::test_destroy() {
     } else {
         std::cout << RED << "destroy(leaf) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("destroy(leaf) failed.");
     }
 
     // Test 3: destroy cây 2 lá
@@ -1658,6 +1760,7 @@ void TestHelper::test_destroy() {
     } else {
         std::cout << RED << "destroy(two leaves) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("destroy(two leaves) failed.");
     }
 
     // Test 4: destroy cây nhiều tầng
@@ -1688,6 +1791,7 @@ void TestHelper::test_destroy() {
     } else {
         std::cout << RED << "destroy(multi-level tree) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("destroy(multi-level tree) failed.");
     }
 
     // Test 5: destroy cây chỉ có một nhánh trái
@@ -1704,6 +1808,7 @@ void TestHelper::test_destroy() {
     } else {
         std::cout << RED << "destroy(left only) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("destroy(left only) failed.");
     }
 
     // Test 6: destroy cây chỉ có một nhánh phải
@@ -1720,27 +1825,11 @@ void TestHelper::test_destroy() {
     } else {
         std::cout << RED << "destroy(right only) failed." << RESET << std::endl;
         num_incorrect++;
+        record_failed_test("destroy(right only) failed.");
     }
 }
 
-
-int main() {
-    cout << BLUE << "=========== LMS TESTS ============" << RESET << endl;
-    sample_01();
-    sample_02();
-    sample_03();
-    sample_04();
-    sample_05();
-    sample_06();
-    sample_07();
-    sample_08();
-    cout << BLUE << "\n=========== OTHER TESTS ============" << RESET << endl;
-    test_case_09();
-    test_case_10();
-    test_case_11();
-    cout << BLUE << "\n=========== EXAMPLE TESTS ============" << RESET << endl;
-    test_example_3_1();
-
+void run_rope_private_tests() {
     cout << BLUE << "\n=========== ROPE PRIVATE FUNCTION TESTS ============" << RESET << endl;
     TestHelper::test_height();
     TestHelper::test_getTotalLength();
@@ -1752,17 +1841,30 @@ int main() {
     TestHelper::test_charAt();
     TestHelper::test_toString();
     TestHelper::test_destroy();
+}
 
-    cout << BLUE << "\n=========== Summary ============" << RESET << endl;
+
+int main() {
+    run_basic_tests(); 
+
+    run_rope_private_tests(); 
+
+
     if (num_incorrect == 0)
     {
+        cout << BLUE << "\n=========== SUMMARY ============" << RESET << endl;
         cout << GREEN << "Passed all tests." << RESET << std::endl;
         cout << GREEN << "Passed: " << num_correct << " " << RED << "Failed: " << num_incorrect << RESET << std::endl;
     }
     else
     {
+        cout << BLUE << "\n=========== FAILED TESTS ============" << RESET << endl;
+        for (const auto& msg : failed_tests) {
+            cout << RED << msg << RESET << std::endl;
+        }
+        cout << BLUE << "\n=========== SUMMARY ============" << RESET << endl;
         cout << GREEN << "Passed: " << num_correct << " " << RED << "Failed: " << num_incorrect << RESET << std::endl;
+
     }
     return 0;
 }
-
