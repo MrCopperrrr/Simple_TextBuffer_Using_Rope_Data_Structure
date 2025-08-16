@@ -1,12 +1,3 @@
-/*
-
-
-NOTHING TO SEE HERE
-
-
-*/
-
-
 #ifndef ROPE_TEXTBUFFER_H
 #define ROPE_TEXTBUFFER_H
 
@@ -26,7 +17,6 @@ private:
     class Node {
     public:
         enum BalanceFactor { LH = 1, EH = 0, RH = -1 };
-
     private:
         Node* left;
         Node* right;
@@ -34,11 +24,16 @@ private:
         int weight;
         int height;
         BalanceFactor balance;
+        int totalLength; //add
 
         Node();
         explicit Node(const string& s);
         bool isLeaf() const;
         friend class Rope; // add
+        // ===== FRIEND TEST HELPER (REMOVE BEFORE SUBMIT) =====
+        friend class TestHelper; // <--- thêm dòng này để test private
+        // =====================================================
+        
     };
     
 
@@ -56,6 +51,8 @@ private:
     void toStringHelper(Node* node, std::string& result) const;
     string toString(Node* node) const;
     void destroy(Node*& node);
+    int collectSubstring(Node* node, int start, int len, string &out) const; //add
+    Node* buildFromString(const std::string& s);
 
 public:
     Rope();
@@ -69,6 +66,9 @@ public:
     void deleteRange(int start, int length);
     string toString() const;
 
+    // ===== FRIEND TEST HELPER (REMOVE BEFORE SUBMIT) =====
+    friend class TestHelper; // <--- thêm dòng này để test private
+    // =====================================================
 #ifdef TESTING
     friend class TestHelper;
 #endif
@@ -101,6 +101,9 @@ public:
     void redo();
     void printHistory() const;
     void clear();
+    // ===== FRIEND TEST HELPER (REMOVE BEFORE SUBMIT) =====
+    friend class TestHelper; // <--- thêm dòng này để test private
+    // =====================================================
 #ifdef TESTING
     friend class TestHelper;
 #endif
@@ -114,6 +117,8 @@ public:
         int cursorBefore;
         int cursorAfter;
         string data;
+        string oldData; // chuỗi cũ
+        string newData; // chuỗi mới
     };
 
 private:
@@ -121,7 +126,7 @@ private:
     Action* actions;
     int capacity;
     int size;
-    int current; 
+    int current; // con trỏ undo/redo: -1 nếu chưa có hành động nào
 
     void ensureCapacity() {
         if (size < capacity) return;
@@ -141,6 +146,24 @@ public:
     bool canUndo() const;
     bool canRedo() const;
     void printHistory() const;
+
+    // Các hàm phụ trợ cho undo/redo
+    Action getUndoAction() const {
+    if (!canUndo()) return Action{}; // trả về Action rỗng
+    return actions[current];
+    }
+
+    Action getRedoAction() const {
+        if (!canRedo()) return Action{};
+        return actions[current + 1];
+    }
+    
+    void moveUndoPointer(int delta) {
+        current += delta;
+    }
+    // ===== FRIEND TEST HELPER (REMOVE BEFORE SUBMIT) =====
+    friend class TestHelper; // <--- thêm dòng này để test private
+    // =====================================================
 #ifdef TESTING
     friend class TestHelper;
 #endif
