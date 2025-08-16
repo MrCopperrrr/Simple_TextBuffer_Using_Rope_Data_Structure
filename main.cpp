@@ -1753,7 +1753,6 @@ int main() {
     TestHelper::test_toString();
     TestHelper::test_destroy();
 
-
     cout << BLUE << "\n=========== Summary ============" << RESET << endl;
     if (num_incorrect == 0)
     {
