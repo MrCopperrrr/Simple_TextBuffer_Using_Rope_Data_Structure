@@ -11,11 +11,11 @@ Implement a simple textbuffer using rope data structure
 // =====================================================
 ```
 
-Các vị trí cần thêm: 
-    Trong class Node (private) 
-    Trong class Rope (public)
-    Trong class RopeTextBuffer (public)
-    Trong class History Manager (public)
+Các vị trí cần thêm:  
+    - Trong class Node (private)  
+    - Trong class Rope (public)  
+    - Trong class RopeTextBuffer (public)  
+    - Trong class History Manager (public)  
 
 LƯU Ý: Nhớ xoá các dòng này trước khi nộp bài.
 
