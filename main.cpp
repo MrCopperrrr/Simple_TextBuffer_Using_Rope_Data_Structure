@@ -686,6 +686,10 @@ void TestHelper::test_update() {
     root->left = left;
     root->right = right;
     rope.update(root);
+    std::cout << "Weight: " << root->weight 
+              << ", Height: " << root->height 
+              << ", Balance: " << root->balance 
+              << ", Total Length: " << root->totalLength << std::endl;
     ok = (root->weight == 1 && root->height == 2 && root->balance == Rope::Node::EH && root->totalLength == 3);
     if (ok) {
         std::cout << GREEN << "update(root with 2 leaves) correct." << RESET << std::endl;
